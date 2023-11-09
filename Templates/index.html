@@ -1,0 +1,43 @@
+{% include "header.html" %}
+<body>
+   {% for image in images %}
+        <div class="card">
+
+            <div class="front">
+                <img src={{image[1]}} alt="Image of {{image[0]}}" width="auto" height="300">
+
+                <div class="card_text">
+                    <h3>{{ image[0] }}</h3>
+                    <p>{{ image[4] }}</p>
+                    <p class="card_price">Price: {{image[2]}}€</p>
+                </div>
+
+            </div>
+
+            <div class="back {% if image[3] == 0 %}red-bg{% elif image[3] <= 4 %}orange-bg{% elif image[3] >= 10 %}green-bg
+                        {% elif image[3] < 10 %}blue-bg{% endif %}">
+
+                <img src={{image[1]}} alt="Image of: {{ image[0] }}" width="auto" height="300">
+
+                <div class="add_to_cart">
+                    <h3> Available: {{image[3]}}</h3>
+                    <form method="post" class="new_item_form">
+                        <label >Number of pieces:</label>
+                        <input type="text" name="pieces" required>
+                        {% if error %}
+                            <h2>{{ error }}</h2>
+                        {% endif %}
+                        {% if image[3] == 0%}
+                            <input type="submit" value="Add item" disabled/>
+                        {% else %}
+                            <input type="hidden" name="ItemName" value="{{image[0]}}">
+                            <input type="submit" value="Add item" name="item"/>
+                        {% endif %}
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</body>
+{% include "footer.html" %}

@@ -1,0 +1,104 @@
+{% include "header.html" %}
+<body>
+
+            <div class="cart_card">
+                <h2>Cart Contents:</h2>
+                {% for item in cart %}
+                    <h3>Name: {{ item[0] }} </h3>
+                    <h3>Quantity: {{ item[1] }}</h3>
+                    <form method="post">
+                        <input type="hidden" value="{{ item[0] }}" name="item_name">
+                        <input type="text" name="num_pieces">
+                        <input type="submit" value="Change number of pieces" name="new_pieces">
+                    </form>
+
+                    <form method="post">
+                        <input type="hidden" value="{{ item[0] }}" name="item_delete">
+                        <input type="submit" value="delete goods" name="delete">
+                    </form>
+                {% endfor %}
+            </div>
+
+    <div class="price_and_tax">
+        <h2>Total with out tax: {{total}} Euro</h2>
+        <h2>Tax: {{ (total * 1.20 - total)|round(3, 'ceil') }} Euro</h2>
+        <h2>Combined: {{ (total * 1.20)|round(3, 'ceil') }} Euro</h2>
+    </div>
+
+    <div class="dropdown">
+        <span>Payment methode:</span>
+        <div class="dropdown-content">
+            <form method="post">
+                <button class="pay_methode" name="account_pay" >Payment to a bank account</button>
+                <button class="pay_methode" name="card_pay" >Credit Card</button>
+            </form>
+        </div>
+    </div>
+
+    {% if pay_methode == 'account' %}
+        <div class="account_payment">
+            <h3>Account:</h3>
+            <h4>IBAN: 1230 0000 0000 4521</h4>
+            <h4>Variable symbol: 2534</h4>
+            <h5>Your Your order will be shipped after receipt of payment. Usually within 4 days.</h5>
+                <div class="address_form">
+                    <h2>Address:</h2>
+                    <form method="post">
+                        <label>Name:</label>
+                        <input type="text" width="200" required>
+                        <br>
+                        <label>State:</label>
+                        <input type="text" width="200" required>
+                        <br>
+                        <label>City:</label>
+                        <input type="text" required>
+                        <br>
+                        <label>Post code:</label>
+                        <input type="text" required>
+                        <br>
+                        <input class="card_button" type="submit" name="Submit">
+                    </form>
+                </div>
+        </div>
+    {% elif pay_methode == 'card' %}
+         <div class="address_form">
+                <h2>Address:</h2>
+                <form method="post">
+                    <label>Name:</label>
+                    <input type="text" width="200" required>
+                    <br>
+                    <label>State:</label>
+                    <input type="text" width="200" required>
+                    <br>
+                    <label>City:</label>
+                    <input type="text" required>
+                    <br>
+                    <label>Post code:</label>
+                    <input type="text" required>
+                </form>
+         </div>
+
+         <div class="payment-form">
+         <form method="post">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+
+            <label for="expiry">Expiry Date:</label>
+            <input type="text" id="expiry" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" placeholder="123" required>
+
+            <label for="cardType">Card Type:</label>
+            <select id="cardType" required>
+                <option value="visa">Visa</option>
+                <option value="mastercard">MasterCard</option>
+                <option value="amex">American Express</option>
+            </select>
+            <button class="card_button" type="submit" name="Submit">Submit</button>
+         </form>
+         </div>
+    {% endif %}
+
+</body>
+{% include "footer.html" %}

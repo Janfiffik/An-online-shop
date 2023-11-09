@@ -1,0 +1,71 @@
+{% include "header.html"%}
+<body>
+    <div class="new_item">
+        <h2>New Item:</h2>
+        <form enctype="multipart/form-data" method="post" class="new_item_form">
+
+            <label class="new_item label">Name of the product:</label>
+            <input class="new_item_input" type="text" name="name" required>
+
+            <label class="new_item label">Product image: instead using spaces in name of the file use CamelCase.jpg </label>
+            <input class="new_item input file" type="file" name="product_img" accept="image/png, image/jpeg" >
+
+            <label class="new_item label">Product price:</label>
+            <input class="new_item_input" type="text" name="price" required>
+
+            <label class="new_item label">Pieces:</label>
+            <input class="new_item_input" type="text" name="pieces" required>
+
+            <label class="new_item label">Information about product</label>
+            <input class="new_item_input" type="text" name="info" required>
+
+            <input class="add_item_button" type="submit" name="new_item">
+
+        </form>
+    </div>
+
+    <div class="update_item">
+
+        <h2>Update existing one:</h2>
+        <form enctype="multipart/form-data" method="post">
+            <label class="update_item label">Name of the product:</label>
+            <input class="update_item_input" type="text" name="old_name" required>
+
+            <label class="new_item label">Update image: instead using spaces in name of the file use CamelCase.jpg </label>
+            <input class="new_item input file" type="file" name="product_img" accept="image/png, image/jpeg" >
+
+            <label class="update_item label">Change name of the product:</label>
+            <input class="update_item_input" type="text" name="new_name" >
+
+            <label class="update_item label">Change price of the product:</label>
+            <input class="update_item_input" type="text" name="new_price">
+
+            <label class="update_item label">Change number of pieces:</label>
+            <input class="update_item_input" type="text" name="new_pieces">
+
+            <label class="update_item label">Change description:</label>
+            <input class="update_item_input" type="text" name="new_info">
+
+            <button class="add_item_button" type="submit" name="update_item">Update Item</button>
+        </form>
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="delete">
+        <h2>Delete Item:</h2>
+        <form method="get">
+            <label class="new_item label">Name of the product:</label>
+            <input class="new_item_input" type="text" name="name" required>
+            <button class="add_item_button" type="submit" name="delete_item">Delete item</button>
+        </form>
+    </div>
+
+</body>
+{% include "footer.html" %}

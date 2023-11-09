@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thing shop</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" href="static/images/ico.png">
+</head>
+
+<body>
+
+    <div class="head">
+        <h2>Things for everyone</h2>
+        <h4>Online shop of random things of all tastes</h4>
+    </div>
+
+    {% if request.path != '/admin' %}
+    <div class="price-tab">
+
+        <label>Total price:</label>
+        <label>{{total}} €</label>
+            {% if request.path != '/cart' %}
+                <button class="button">
+                    <a href="{{url_for('home', filter='ascending')}}">
+                        Ascending price
+                    </a>
+                </button>
+
+                <button class="button">
+                    <a href="{{url_for('home', filter='descending')}}">
+                        Descending price
+                    </a>
+                </button>
+
+                <a class="cart_link" href="/cart">to checkout</a>
+            {% endif %}
+
+
+        {% if request.path == '/cart' %}
+            <button class="button">
+                <a href="{{url_for('home')}}">
+                    Continue shopping
+                </a>
+            </button>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+
+</html>
